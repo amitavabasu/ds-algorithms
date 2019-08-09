@@ -152,7 +152,7 @@ public class EulerProblems {
 		return sum;
 	}
 	
-	public static void generateNumbersWhichAreSumOfTheFactOfItsDigits(int n){
+	public static int generateNumbersWhichAreSumOfTheFactOfItsDigits(int n){
 		int[] fact = new int[10];
 		fact[0] = 1;
 		for (int i = 1; i < 10; i++)
@@ -166,6 +166,7 @@ public class EulerProblems {
 			}
 			i++;
 		}
+		return count;
 	}
 	
 	public static void sumOfPower(){
@@ -201,19 +202,19 @@ public class EulerProblems {
 		    	s+=n%10;
 		    	n=n/10;		    	
 		    }
-		    System.out.println(s);		
+		    System.out.println(s);
 	}
 	
 	
 	public static void main(String[] args){
-		//System.out.println(sumOdMultipleOfTwoGivenNumbers(3,5,1000));
+		System.out.println(sumOdMultipleOfTwoGivenNumbers(3,5,1000));
 		//System.out.println(fibonaciiSum(4000000));
 		//System.out.println(primeFactors(600851475143L));
 		//System.out.println(isPalindrome("abaaaaa"));
 		//System.out.println(higestPalindrome(5));
 		//System.out.println(nthPrime(10001));
 		//generateNumbersWhichAreSumOfTheFactOfItsDigits(3);
-		sumOfPower();
+		//sumOfPower();
 	}
 	
 }

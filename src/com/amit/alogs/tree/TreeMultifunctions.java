@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.TreeMap;
 //import java.util.Stack;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -287,7 +288,91 @@ public class TreeMultifunctions {
         } 		
     }
     
+	public static TNode lowestCommonAncestor(TNode root, int v1, int v2){
+		if(root==null){
+			return root;
+		}else{
+			if(root.data > v1 && root.data > v2){
+				return lowestCommonAncestor(root.left, v1, v2);
+			}else if(root.data < v1 && root.data < v2){
+				return lowestCommonAncestor(root.right, v1, v2);
+			}else{
+				return root;
+			}
+		}
+	}
 	
+	public static TNode lca(TNode root, int v1, int v2){
+		while(root!=null){
+			if(root.data > v1 && root.data > v2){
+				root = root.left;
+			}else if(root.data < v1 && root.data < v2){
+				root = root.right;
+			}else{
+				return root;
+			}
+		}
+		return root;
+	}
+	static TNode prev = null;
+	public static boolean checkBST(TNode root){
+		if(root==null){
+			return true;
+		}else{
+			boolean leftCheck;
+			boolean rightCheck;
+			if(root.left!=null && root.left.data > root.data){
+				return false;
+			}else{
+				 leftCheck = checkBST(root.left);
+			}
+			if(prev!=null && root.data <= prev.data){
+				return false;
+			}
+			prev = root;
+			if(root.right!=null && root.right.data < root.data){
+				return false;
+			}else{
+				rightCheck = checkBST(root.right);
+			}
+			return leftCheck && rightCheck;
+		}
+	}
+	
+	
+    boolean checkBSTNonRec(TNode root) {
+        Stack<TNode> stack = new Stack<TNode>();
+        TNode node = root;
+        TNode prev = null;
+        while(node!=null || !stack.empty()){
+            while(node!=null){
+                stack.push(node);
+                if(node.left!=null && node.left.data > node.data)
+                    return false;
+                node = node.left;
+            }
+            node = stack.pop();
+            if(prev!=null && node.data <= prev.data){
+                return false;
+            }
+            //System.out.println(node.data);
+            prev = node;
+            if(node.right!=null && node.right.data < node.data )
+                return false;
+            node = node.right;
+        }
+        return true;
+    }	
+	
+	public static TNode buildTree(){
+		TNode root = new TNode(3);
+		root.left = new TNode(5);
+		root.right = new TNode(2);
+		root.left.left = new TNode(1);
+		root.left.right = new TNode(4);
+		root.right.left = new TNode(6);
+		return root;
+	}
 	
 	public static void main(String[] args){
 		int[] array = {37,23,108,59,86,64,94,14,105,17,111,65,55,31,79,97,78,25,50,22,66,46,104,98,81,90,68,40,103,77,74,18,69,82,41,4,48,83,67,6,2,95,54,100,99,84,34,88,27,72,32,62,9,56,109,115,33,15,91,29,85,114,112,20,26,30,93,96,87,42,38,60,7,73,35,12,10,57,80,13,52,44,16,70,8,39,107,106,63,24,92,45,75,116,5,61,49,101,71,11,53,43,102,110,1,58,36,28,76,47,113,21,89,51,19,3};
@@ -296,6 +381,14 @@ public class TreeMultifunctions {
 		for(int i:array){
 			root = insert(root,i);
 		}
-		topView(root);
+//		topView(root);
+//		int[] arr = {4, 2, 3, 1, 7, 6};
+//		TNode root = null;
+//		for(int i:arr){
+//			root = insert(root,i);
+//		}
+//		System.out.println(lca(root,1,7).data);
+//		TNode root = buildTree();
+		System.out.println(checkBST(root));
 	}
 }

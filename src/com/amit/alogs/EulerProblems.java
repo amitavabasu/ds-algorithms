@@ -1,10 +1,5 @@
 package com.amit.alogs;
 
-import java.math.BigInteger;
-import java.text.DecimalFormat;
-
-import javax.swing.text.NumberFormatter;
-
 public class EulerProblems {
 
 	public static long sumOdMultipleOfTwoGivenNumbers(int a, int b, int limit){

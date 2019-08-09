@@ -2,8 +2,6 @@ package com.amit.alogs.hr.medium;
 
 import java.util.Arrays;
 
-import javax.xml.bind.helpers.PrintConversionEventImpl;
-
 public class HR10CandyDistribution {
 
 	public static long candies(int n, int[] arr) {

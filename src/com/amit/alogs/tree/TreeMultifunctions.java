@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.TreeMap;
-//import java.util.Stack;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class TreeMultifunctions {
@@ -182,11 +181,6 @@ public class TreeMultifunctions {
 		}
 	}
 	
-	public void addDouble(double a, double b, Double sum, Node node){
-		sum = new Double(a+b);
-		node.value = 100.0;
-	}
-	
 	public void printLevelSumNonRecursive(Node root){
 		if(root==null){
 			System.out.println(0);
@@ -232,8 +226,7 @@ public class TreeMultifunctions {
         }
     }
 
-
-    public static void findTop(TNode node, int index){
+    public static void findTop(TNode node, int index){//<-- this one is wrong, we need breadth-first-traversal (level-order-travesal)
         if(node==null){
             return;
         }else{
@@ -251,11 +244,10 @@ public class TreeMultifunctions {
 	public static void topView2(TNode root) {
 		class QueueObj {
             TNode node; 
-            int hd; 
-  
-            QueueObj(TNode node, int hd) { 
+            int horizontalOffset; 
+            QueueObj(TNode node, int horizontalOffset) { 
                 this.node = node; 
-                this.hd = hd; 
+                this.horizontalOffset = horizontalOffset; 
             } 
         } 
         Queue<QueueObj> q = new LinkedList<QueueObj>(); 
@@ -267,19 +259,17 @@ public class TreeMultifunctions {
             q.add(new QueueObj(root, 0)); 
         } 
         // count function returns 1 if the container  
-        // contains an element whose key is equivalent  
-        // to hd, or returns zero otherwise. 
+        // contains an element whose key is equivalent to height, or returns zero otherwise. 
         while (!q.isEmpty()) { 
-            QueueObj tmpNode = q.poll(); 
-            if (!topViewMap.containsKey(tmpNode.hd)) { 
-                topViewMap.put(tmpNode.hd, tmpNode.node); 
+            QueueObj tmpNode = q.poll();
+            if (!topViewMap.containsKey(tmpNode.horizontalOffset)) {
+                topViewMap.put(tmpNode.horizontalOffset, tmpNode.node);
             } 
-  
             if (tmpNode.node.left != null) { 
-                q.add(new QueueObj(tmpNode.node.left, tmpNode.hd - 1)); 
+                q.add(new QueueObj(tmpNode.node.left, tmpNode.horizontalOffset - 1)); //<-- going left so reduce offset towards negative infinity
             } 
             if (tmpNode.node.right != null) { 
-                q.add(new QueueObj(tmpNode.node.right, tmpNode.hd + 1)); 
+                q.add(new QueueObj(tmpNode.node.right, tmpNode.horizontalOffset + 1)); //<-- going right so increase offset twords positive infenity
             } 
   
         } 
@@ -288,21 +278,21 @@ public class TreeMultifunctions {
         } 		
     }
     
-	public static TNode lowestCommonAncestor(TNode root, int v1, int v2){
+	public static TNode lowestCommonAncestorRecursive(TNode root, int v1, int v2){//<-- post-order traversal
 		if(root==null){
 			return root;
 		}else{
 			if(root.data > v1 && root.data > v2){
-				return lowestCommonAncestor(root.left, v1, v2);
+				return lowestCommonAncestorRecursive(root.left, v1, v2);
 			}else if(root.data < v1 && root.data < v2){
-				return lowestCommonAncestor(root.right, v1, v2);
+				return lowestCommonAncestorRecursive(root.right, v1, v2);
 			}else{
 				return root;
 			}
 		}
 	}
 	
-	public static TNode lca(TNode root, int v1, int v2){
+	public static TNode lowestCommonAncestorNonRecursive(TNode root, int v1, int v2){//<-- port-order-traversal
 		while(root!=null){
 			if(root.data > v1 && root.data > v2){
 				root = root.left;
@@ -315,7 +305,7 @@ public class TreeMultifunctions {
 		return root;
 	}
 	static TNode prev = null;
-	public static boolean checkBST(TNode root){
+	public static boolean checkBSTRecursive(TNode root){//<-- very good algo, in-order-traversal
 		if(root==null){
 			return true;
 		}else{
@@ -324,45 +314,52 @@ public class TreeMultifunctions {
 			if(root.left!=null && root.left.data > root.data){
 				return false;
 			}else{
-				 leftCheck = checkBST(root.left);
+				 leftCheck = checkBSTRecursive(root.left);
 			}
-			if(prev!=null && root.data <= prev.data){
+			if(prev!=null && root.data <= prev.data){//<-- this is important, current root must be less than or equal to previous, 
+													 //why? 
+													 //because previous node always points to a successfully visited node, 
+													 //prior to visiting current node. 
+													 //As this is L-N-R traversal previous is either root or right node of current node  
 				return false;
 			}
 			prev = root;
 			if(root.right!=null && root.right.data < root.data){
 				return false;
 			}else{
-				rightCheck = checkBST(root.right);
+				rightCheck = checkBSTRecursive(root.right);
 			}
 			return leftCheck && rightCheck;
 		}
 	}
 	
-	
-    boolean checkBSTNonRec(TNode root) {
-        Stack<TNode> stack = new Stack<TNode>();
-        TNode node = root;
-        TNode prev = null;
-        while(node!=null || !stack.empty()){
-            while(node!=null){
-                stack.push(node);
-                if(node.left!=null && node.left.data > node.data)
-                    return false;
-                node = node.left;
-            }
-            node = stack.pop();
-            if(prev!=null && node.data <= prev.data){
-                return false;
-            }
-            //System.out.println(node.data);
-            prev = node;
-            if(node.right!=null && node.right.data < node.data )
-                return false;
-            node = node.right;
-        }
-        return true;
-    }	
+	public static boolean checkBSTNonRecursive(TNode root){//<-- using in-order-traversal
+		Stack<TNode> stack = new Stack<>();
+		TNode node = root;
+		TNode prev = null;
+		while(node!=null || !stack.empty()){
+			while(node!=null){
+				stack.push(node);
+				if(node.left!=null && node.left.data > node.data ){
+					return false;
+				}
+				node = node.left;
+			}
+			node = stack.pop();
+			if(prev!=null && node.data <= prev.data){//<-- current node must be less than or equal to previous, 
+													 //because previous node always points to a successfully visited node, 
+													 //prior to visiting current node. 
+													 //As this is L-N-R traversal previous is either root or right node of current node  
+				return false;
+			}
+			prev = node;
+			if(node.right!=null && node.right.data < node.data ){
+				return false;
+			}
+			node = node.right;
+		}
+		return true;
+	}
 	
 	public static TNode buildTree(){
 		TNode root = new TNode(3);
@@ -389,6 +386,7 @@ public class TreeMultifunctions {
 //		}
 //		System.out.println(lca(root,1,7).data);
 //		TNode root = buildTree();
-		System.out.println(checkBST(root));
+		System.out.println(checkBSTRecursive(root));
+		System.out.println(checkBSTNonRecursive(root));
 	}
 }

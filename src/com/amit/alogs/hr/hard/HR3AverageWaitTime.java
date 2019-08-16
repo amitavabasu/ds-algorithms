@@ -1,11 +1,7 @@
 package com.amit.alogs.hr.hard;
 
-
 import java.io.*;
-import java.math.*;
-import java.text.*;
 import java.util.*;
-import java.util.regex.*;
 
 public class HR3AverageWaitTime {
 
@@ -32,7 +28,7 @@ public class HR3AverageWaitTime {
 		}
     }
     
-    public static class ServiceComparator implements Comparator<Task>{
+    public static class ServiceTimeComparator implements Comparator<Task>{
 		@Override
 		public int compare(Task o1, Task o2) {
 			if(o1.serviceTime == o2.serviceTime){
@@ -68,7 +64,7 @@ public class HR3AverageWaitTime {
     	long cumulativeWaitTime = 0;
     	boolean done = false;
     	int i = 0;
-    	PriorityQueue<Task> queue = new PriorityQueue<>(new ServiceComparator());
+    	PriorityQueue<Task> queue = new PriorityQueue<>(new ServiceTimeComparator());
     	Task t = tasks.get(i);
     	serviceTimeForThisTask = t.serviceTime;
     	totalWaitTime = serviceTimeForThisTask+waitTimeDueToPreviousTasks;
@@ -137,7 +133,7 @@ public class HR3AverageWaitTime {
 
         //bufferedWriter.close();
 
-        //scanner.close();
+        scanner.close();
     }
 }
 

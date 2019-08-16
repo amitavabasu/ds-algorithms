@@ -157,35 +157,6 @@ public class TreeTraversal {
 		}
 	}
 	
-	public boolean checkBST(Node root){
-		Stack<Node> stack = new Stack<Node>();
-		Node node = root;
-		Node prev = null;
-		while(node!=null || !stack.empty()){
-			while(node!=null){
-				stack.push(node);
-				if(node.left!=null && node.left.value > node.value ){
-					return false;
-				}
-				node = node.left;
-			}
-			node = stack.pop();
-			System.out.println("Previous Comparisn: "+(prev==null?"null":prev.value)+"-"+node.value);
-			if(prev!=null && node.value <= prev.value){
-				return false;
-			}
-			prev = node;
-			System.out.println("Storing as previous: "+node.value);
-			System.out.println("Comparing to right: "+node.value+"-"+(node.right==null?"null":node.right.value));
-			if(node.right!=null && node.right.value < node.value ){
-				return false;
-			}
-			node = node.right;
-		}
-		return true;
-	}
-	
-	
 	/*out-order(RNL) - similar to in-order with two while loop
 	 * initialize node to root
 	 * use stack
@@ -406,8 +377,7 @@ public class TreeTraversal {
 //		System.out.println("--");
 //		tree.breadthFirstSearchLevelOrderRecursive(root);
 //		F, B, G, A, D, I, C, E, H
-		System.out.println(tree.checkBST(root));
 //		System.out.println(tree.height(root));
-//		System.out.println(tree.heightByedges(root));
+		System.out.println(tree.heightByedges(root));
 	}
 }

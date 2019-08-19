@@ -3,61 +3,69 @@ package com.amit.alogs.hr.medium;
 import java.util.LinkedList;
 import java.util.Queue;
 
+	/*
+	 * Inform bank about activity notification when current day expense exceeds previous d day expenses median 
+	 */
 public class HR6ActivityNotifications {
     static int activityNotifications(int[] expenditure, int d) {
-        if(expenditure==null || expenditure.length==0 || d >= expenditure.length){
+    	/*
+    	 * the problem here is calculating the median.
+    	 * a mechanism called index sort can be used for this assuming a limit for the daily expenses. Choose this limit carefully
+    	 * a queue is also needed to keep track of the elements going out and falling in the range.
+    	 * interesting and a good solution. 
+    	 */
+        if(expenditure==null || expenditure.length==0 || d >= expenditure.length) {
             return 0;
         }
         int notfCount = 0;
         int[] counts = new int[201];//<-- expecting no expenditure exceeds $200 in any day, dangerous assumption???? 
         Queue<Integer> q = new LinkedList<>();
+        //for first d expenditures
         for(int i=0; i<d; i++){
-            q.add(expenditure[i]);
-            counts[expenditure[i]] = counts[expenditure[i]]+1; 
+            q.add(expenditure[i]); //<-- add that expenditure to queue
+            counts[expenditure[i]] = counts[expenditure[i]]+1; //<-- put extra count (i.e. count+1) at the count array
         }
-        for(int i=d; i<expenditure.length; i++){
+        for(int i=d; i<expenditure.length; i++){ //<-- this loop calculates median
             //Calculate median
-//            medianArray = q.toArray(medianArray);
-//            Arrays.sort(medianArray);
         	double median = 0;
-            if(d%2==0){
+            if(d%2==0){ //<-- if d even number
             	int count = 0;
             	int firstVal = -1;
             	int secondVal = -1;
-            	for(int j=0;j<counts.length; j++){
-            		count = count + counts[j];
-                    if(count == d/2)
+            	for(int j=0;j<counts.length; j++){//<-- iterate entire counts array
+            		count += counts[j]; //<-- increment count by counts array 
+                    if(count == d/2) //<-- when count reaches d/2 it's the first value
                     {
-                        firstVal = j;
-                    }else if(count > d/2)
+                        firstVal = j;//<-- set first value to j
+                    }else if(count > d/2)//<-- when count exceeds d/2 it's the second value
                     {
-                        if(firstVal < 0 ) firstVal = j;
-                        secondVal = j;
-                        median = ((double)firstVal + (double)secondVal)/2;
-                        break;
+                        if(firstVal < 0 ) firstVal = j; //<-- if first value is not set yet by previous check set it to j
+                        secondVal = j;//<-- set second value to j
+                        median = ((double)firstVal + (double)secondVal)/2; //<--calculate median
+                        break; //<-- break no need to continue, median is found
                     }
             	}
             }else{
             	int count = 0;
-            	for(int j=0;j<counts.length; j++){
-            		count = count + counts[j];
-                    if(count > d/2)
+            	for(int j=0;j<counts.length; j++){//<-- iterate over entire counts array 
+            		count = count + counts[j];//<-- increment count by counts array
+                    if(count > d/2)//<-- when count reaches d/2 it's the middle of the d array and median
                     {
-                    	median = ((double)j);
-                    	break;
+                    	median = ((double)j); //<-- set median to j
+                    	break;//<-- break, median is found
                     }    
             	}
             }
-            int spending = expenditure[i];
-            if(spending>=(median*2)){
-                notfCount++;
+            int spending = expenditure[i];//<-- get current spending/expenditure
+            if(spending>=(median*2)){//<-- check if expenditure exceeds median or not based on that take action
+                notfCount++;//<-- the action in this case to increase notification count
             }
-            int val = q.remove();
-            counts[val] = counts[val]-1;
-            q.add(spending);
-            counts[spending] = counts[spending]+1;
+            int val = q.remove();//<-- remove the last element from queue;
+            counts[val] = counts[val]-1;//<-- decrement last element count from counts array
+            q.add(spending);//<-- now add current spending in queue
+            counts[spending] = counts[spending]+1;//<-- increment spending count by 1
         }
-        return notfCount;
+        return notfCount;//<-- finally return notification count
     }
     
     static int activityNotifications2(int[] expenditure, int d) {

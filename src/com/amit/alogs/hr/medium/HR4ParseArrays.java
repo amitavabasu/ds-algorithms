@@ -6,7 +6,14 @@ import java.util.Map;
 
 public class HR4ParseArrays {
 	
+	/*
+	 * get number of matching strings in array of strings given an array of query strings 
+	 */
+	
 	public int[] matchingStrings(String[] strings, String[] queries){
+		/*
+		 * simple implementation, 
+		 */
 		int[] result = null;
 		if(strings==null || queries==null || strings.length==0 || queries.length==0){
 			 result = new int[1];
@@ -15,17 +22,15 @@ public class HR4ParseArrays {
 		result = new int[queries.length];
 		Map<String,Integer> countMap = new HashMap<>();
 		for(int i=0; i<strings.length; i++){
-			String s = strings[i];
-			Integer count = countMap.get(s);
+			Integer count = countMap.get(strings[i]);
 			if(count==null){
-				countMap.put(s, 1);
+				countMap.put(strings[i], 1);
 			}else{
-				countMap.put(s, count+1);
+				countMap.put(strings[i], count+1);
 			}
 		}
 		for(int i=0; i<queries.length; i++){
-			String s = queries[i];
-			Integer count = countMap.get(s);
+			Integer count = countMap.get(queries[i]);
 			if(count==null){
 				result[i] = 0;
 			}else{

@@ -1,8 +1,13 @@
 package com.amit.alogs.hr.medium;
 
 public class HR2MinSwaps {
-
+	/*
+	 * count number of swaps needed sort an array of natural numbers i.r. 5,4,3,1,2 --> 1,2,3,4,5 
+	 */
 	public int minimumSwaps(int[] arr){
+		/*
+		 * for each element check it's ideal position then swap with ideal position, if swap needed swap and increment swap count.
+		 */
 		int swapCount = 0;
 		if(arr==null || arr.length <2){
 			return swapCount;

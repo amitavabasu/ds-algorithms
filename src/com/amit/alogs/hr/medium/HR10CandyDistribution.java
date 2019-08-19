@@ -3,6 +3,11 @@ package com.amit.alogs.hr.medium;
 import java.util.Arrays;
 
 public class HR10CandyDistribution {
+	
+	/*
+	 * Distribute candy with minimum numbers.
+	 * Key to the solution - traverse left to right first incrementing based on rule then traverse right to left doing same rule 
+	 */
 
 	public static long candies(int n, int[] arr) {
 		if(arr==null || arr.length==0){

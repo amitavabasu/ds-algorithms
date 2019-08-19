@@ -3,12 +3,16 @@ package com.amit.alogs.hr.medium;
 public class HR1NewYearChaos {
 
 	public void minimumBribes(int[] q){
+		/*
+		 * get every element from end of the array q.
+		 * check it's natural position that is element-1, make a decision how much it has shifted
+		 * if the shift is more than 2 say "Too chaotic" else put that element in right place and increment the shift count or bribe count
+		 */
 		int bribeCount = 0;
 		if(q==null || q.length < 2){
 			System.out.println(bribeCount);
 		}
 		int qLength = q.length;
-		//Map<Integer,Integer> shiftMap = new HashMap<Integer, Integer>();
 		for(int i=qLength-1; i>=0; i--){
 			//System.out.println(Arrays.toString(q));
 			int element = q[i];
@@ -33,18 +37,6 @@ public class HR1NewYearChaos {
 			}
 		}
 		System.out.println(bribeCount);
-//		List<Integer> keys = new ArrayList<Integer>(shiftMap.keySet());
-//		Collections.sort(keys);
-//		int totalCount = 0;
-//		for(Integer index:keys){
-//			Integer shift = shiftMap.get(index);
-//			if(shift>=0){
-//				bribeCount = bribeCount+shift;
-//			}
-//			totalCount = totalCount+shift;
-//			System.out.println("Element: "+index+"==>"+shift);
-//		}
-//		System.out.println("TotalCount: "+totalCount+"; BribeCount: "+bribeCount);
 	}
 	
 	public static void main(String[] args){

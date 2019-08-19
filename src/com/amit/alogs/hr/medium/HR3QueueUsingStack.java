@@ -3,57 +3,16 @@ package com.amit.alogs.hr.medium;
 import java.util.Stack;
 
 public class HR3QueueUsingStack {
-	
-//	private static class Node<T> {
-//		public T value;
-//		public Node previous;
-//		public Node next;
-//		public Node(T input) {
-//			value = input;
-//		}
-//	}
-	
-//	private static class MyQueue<T> {
-//		Node first = null;
-//		Node last = null;
-//		public void enqueue(T item){
-//			Node node = new Node(item);
-//			if(first==null) {
-//				first = node;
-//			}else {
-//				first.previous = node;
-//				node.next = first;
-//				first = node;
-//			}
-//			if(last==null) {
-//				last = node;
-//			}
-//		}
-//		public T dequeue(){
-//			if(last==null) {
-//				return null;
-//			} else {
-//				T value = (T)last.value;
-//				last = last.previous;
-//				if(last!=null) {
-//					last.next = null;
-//				}
-//				return value;
-//			}
-//		}
-//		
-//		public T peek(){
-//			if(last==null) {
-//				return null;
-//			} else {
-//				T value = (T)last.value;
-//				return value;
-//			}
-//		}
-//	}
-
+	/*
+	 * Implement a queue using two stacks
+	 */
 	
 	private static class MyQueue<T> {
+		 /*
+		  * Always push in first stack. while dequeu and peek if the second queue is empty or not.
+		  * If not empty pop or peek from second stack.
+		  * If empty pop all from first stack and push all to second stack and pop or peek from second stack
+		  */
 		Stack<T> stack1 = new Stack<>();
 		Stack<T> stack2 = new Stack<>();
 		public void enqueue(T item){
@@ -84,7 +43,6 @@ public class HR3QueueUsingStack {
 	}
 	
 	public static void main(String[] args){
-		
 		MyQueue<Integer> queue = new MyQueue<Integer>();
 		queue.enqueue(42);
 		queue.dequeue();

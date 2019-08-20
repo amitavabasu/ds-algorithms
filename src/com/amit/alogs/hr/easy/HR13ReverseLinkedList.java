@@ -1,7 +1,9 @@
 package com.amit.alogs.hr.easy;
 
 public class HR13ReverseLinkedList {
-
+	/*
+	 * reverse a given singly linked list
+	 */
     static class SinglyLinkedListNode {
         public int data;
         public SinglyLinkedListNode next;
@@ -16,21 +18,21 @@ public class HR13ReverseLinkedList {
             return head;
         }
         
-        SinglyLinkedListNode refToHead = head;
-        SinglyLinkedListNode node = head.next;
+        SinglyLinkedListNode refToHead = head;//<-- keep a reference to head as this will be set to null at the end, after reversal
+        SinglyLinkedListNode node = head.next;//<-- point a note to the go to next of head 
         boolean done = false;
         while(!done){
-            SinglyLinkedListNode nextRef = node.next;
-            node.next = head;
-            head = node;
-            if(nextRef==null){
+            SinglyLinkedListNode nextRef = node.next;//<-- create a 3rd node reference to its next
+            node.next = head;//<-- reverse the link of this node to head 
+            head = node;//<-- move head to next
+            if(nextRef==null){//<-- next reference is null it is done
                 done = true;
             }else{
-                node = nextRef;
+                node = nextRef;//<-- else move the node reference to next node reference
             }
         }
-        refToHead.next = null;
-        return head;
+        refToHead.next = null;//<-- finally set the head reference to null as this is now the end of the list
+        return head;//<-- return new head
     }
 
     public static void printSinglyLinkedList(SinglyLinkedListNode node){

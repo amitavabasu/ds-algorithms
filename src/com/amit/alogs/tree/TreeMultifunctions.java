@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.TreeMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class TreeMultifunctions {
 
@@ -32,7 +31,7 @@ public class TreeMultifunctions {
 		}
 	}
 	
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "deprecation" })
 	public Node makeTree1(){
 		Node F = new Node(new Double(6));
 		Node B = F.left = new Node(new Double(2));
@@ -107,7 +106,7 @@ public class TreeMultifunctions {
 		int width = 0;
 		if(root==null)
 			return width;
-		Queue<Node> queue = new ConcurrentLinkedQueue<Node>();
+		Queue<Node> queue = new LinkedList<Node>();
 		queue.add(root);
 		while(!queue.isEmpty()) {
 			if(width < queue.size()) {
@@ -186,7 +185,7 @@ public class TreeMultifunctions {
 			System.out.println(0);
 			return;
 		}
-		Queue<Node> queue = new ConcurrentLinkedQueue<Node>();
+		Queue<Node> queue = new LinkedList<Node>();
 		queue.add(root);
 		while(!queue.isEmpty()){
 			Node node = queue.remove();

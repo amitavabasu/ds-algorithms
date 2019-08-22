@@ -23,12 +23,6 @@ public class HR1SockMarchant {
 				System.out.println("Added color: "+color+"; i="+i+"; count="+count+"; addition="+status);
 			}
 		}
-//		Set<Integer> keys = countMap.keySet();
-//		for(Integer key:keys){
-//			Integer ccount = countMap.get(key);
-//			Integer pair = ccount/2;
-//			count=count+pair;
-//		}
 		return count;
 	}
 	

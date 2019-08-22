@@ -14,7 +14,7 @@ public class HR5StoringAndFindingContactsByName {
 		}
 	}
 	
-	static void add(Node root, String value){
+	static void add(Node root, String value) {
 		Node node = root;
 		//Node newNode = new Node(1);
 		for(int i=0; i<value.length(); i++){

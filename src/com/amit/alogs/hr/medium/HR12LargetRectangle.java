@@ -24,10 +24,8 @@ public class HR12LargetRectangle {
 		int[] right = new int[h.length];
 		int[] left = new int[h.length];
 		//Initialize all right array element to length of the h array and left array element to -1
-		for(int i=0; i<right.length; i++){
-			right[i] = right.length;
-			left[i] = -1;
-		}
+		Arrays.fill(right, h.length);
+		Arrays.fill(left, -1);
 		//use a stack to calculate next & previous minimum element of the current element
 		Stack<Integer> stack = new Stack<>();
 		for(int i=0; i<h.length; i++){//<-- iterate over entire array
@@ -157,6 +155,8 @@ public class HR12LargetRectangle {
 		//int[] h = {8979, 4570, 6436, 5083, 7780, 3269, 5400, 7579, 2324, 2116};
 		//int[] h = {1,2,3,4,5,4,6,2,1};
 		int[] h = {20,25,20,20,20,19};
+		//int[] h = {20,25,20,20,5};
+		//int[] h = {5,25,20,20,20,19};
 		//int[] h = {20,25,20,20,5};
 		System.out.println(Arrays.toString(h));
 		System.out.println(largestRectangle(h));

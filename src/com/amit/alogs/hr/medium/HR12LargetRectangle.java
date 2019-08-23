@@ -34,6 +34,7 @@ public class HR12LargetRectangle {
 			while(!stack.empty() && h[i] <= h[stack.peek()]){//<-- if current height is less than or equal to 
 															 //previously stored index (to the left) of current element pop because 
 															 //previously stored element is not the minimum element  
+				//right[stack.peek()] = i;
 				stack.pop();
 			}
 			if(!stack.empty())
@@ -77,27 +78,42 @@ public class HR12LargetRectangle {
 	    int maximum = 0;
 	    int[] right = new int[h.length-1];
 	    int[] left = new int[h.length-1];
-	    int[] unitArray = new int[h.length-1];
-	    int[] maxCompArray = new int[h.length-1];
+	    String[] unitArray = new String[h.length-1];
+	    String[] maxCompArray = new String[h.length-1];
 	    
 	    for(int i = 0; i < h.length; i++) {
-	        for(j = i; !stack.isEmpty();) {
+	    	j = i;
+	        while(!stack.isEmpty()) {
 		    	Integer[] topPrevRangeIndexes = stack.peek();
 		    	int prevRangeStart = topPrevRangeIndexes[0];
 		    	int prevRangeEnd = topPrevRangeIndexes[1];
-		    	if(h[i] < h[prevRangeStart]){
+		    	if(h[i] <= h[prevRangeStart]){
 		            j = prevRangeEnd;
-		            right[prevRangeStart] = i;
+		            //right[prevRangeStart] = i;
 		            left[prevRangeStart] = j-1;
-		            unitArray[prevRangeStart] = i-j;
-		            maxCompArray[prevRangeStart] = h[prevRangeStart] * (i - j);
+		            if(unitArray[prevRangeStart]==null) {
+		            	unitArray[prevRangeStart] = i-j+"";
+		            }else {
+		            	unitArray[prevRangeStart] = unitArray[prevRangeStart]+","+(i-j)+"";
+		            }
+		            if(maxCompArray[prevRangeStart]==null) {
+		            	maxCompArray[prevRangeStart] = (h[prevRangeStart] * (i - j))+"";
+		            }else {
+		            	maxCompArray[prevRangeStart] = maxCompArray[prevRangeStart]+","+(h[prevRangeStart] * (i - j))+"";
+		            }
 		            maximum = Math.max(maximum, h[prevRangeStart] * (i - j));
 		            //System.out.println("popping: "+prevRangeStart+"-"+prevRangeEnd+"; h["+i+"]="+h[i]+"; probable: "+h[prevRangeStart] * (i - j)+"; max="+maximum);
 		            stack.pop();
-		    	}else{
+//		    	}else if(h[i] == h[prevRangeStart]){
+//		            j = prevRangeEnd;
+//		            left[prevRangeStart] = j-1;
+//		            stack.pop();
+		    	}else {
 		    		break;
 		    	}
 	        }
+	        if(!stack.empty())
+	        	right[i] = stack.peek()[0];
 	        //System.out.println("pushing: "+i+"-"+j);
 	        stack.push(new Integer[]{i,j});
 	    }
@@ -140,7 +156,7 @@ public class HR12LargetRectangle {
 		//int[] h = {1,2,3,4,5};
 		//int[] h = {8979, 4570, 6436, 5083, 7780, 3269, 5400, 7579, 2324, 2116};
 		//int[] h = {1,2,3,4,5,4,6,2,1};
-		int[] h = {5,25,20,20,20,19};
+		int[] h = {20,25,20,20,20,19};
 		//int[] h = {20,25,20,20,5};
 		System.out.println(Arrays.toString(h));
 		System.out.println(largestRectangle(h));

@@ -1,9 +1,5 @@
 package com.amit.alogs.hr.easy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class HR20GCDOfAnArray {
 	
 	public static int gcd(int a, int b){
@@ -44,19 +40,16 @@ public class HR20GCDOfAnArray {
 	
 	public static int findGCDNonRecursive(int[] arr, int length){
 		int first = arr[0];
-		System.out.println(gcdNonRecursive(5, 25));
-		
-		
+		//System.out.println(gcdNonRecursive(5, 25));
 		for(int i=1; i<length; i++){
-			first = gcdNonRecursive(first,arr[i]);
-//			int a = res;
-//			int b = arr[i];
-//			while(b>0){
-//				a=b;
-//				b=b%a;
-//			}
-//			System.out.println(a);
-//			res = a;
+			int second = arr[i];
+			while(second>0){
+				int q = first/second;
+				int r = first - q*second;
+				
+				first=second;
+				second=r;
+			}
 		}
 		return first;
 	}
@@ -64,7 +57,7 @@ public class HR20GCDOfAnArray {
 	
 	
 	public static void main(String[] args){
-		int[] arr = {5, 25}; //--> 0 1 0 0 1 0 1 0
+		int[] arr = {5, 25,30,45, 40}; //--> 0 1 0 0 1 0 1 0
 		System.out.println(findGCD(arr, arr.length));
 		System.out.println(findGCDNonRecursive(arr, arr.length));
 	}

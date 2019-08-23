@@ -39,19 +39,18 @@ public class HR20GCDOfAnArray {
 	}
 	
 	public static int findGCDNonRecursive(int[] arr, int length){
-		int first = arr[0];
-		//System.out.println(gcdNonRecursive(5, 25));
+		int second = arr[0];
 		for(int i=1; i<length; i++){
-			int second = arr[i];
-			while(second>0){
-				int q = first/second;
-				int r = first - q*second;
+			int first = arr[i];
+			while(first>0){
+				int quotient = second/first;
+				int reminder = second - quotient*first;
 				
-				first=second;
-				second=r;
+				second=first;
+				first=reminder;
 			}
 		}
-		return first;
+		return second;
 	}
 	
 	

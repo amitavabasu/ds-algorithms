@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HR5StoringAndFindingContactsByName {
+public class HR6StoringAndFindingContactsByName {
 	
 	public static class Node{
 		public Node[] children = new Node[26];

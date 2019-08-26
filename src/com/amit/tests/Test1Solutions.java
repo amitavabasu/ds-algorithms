@@ -3,6 +3,7 @@ package com.amit.tests;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Test1Solutions {
@@ -30,6 +31,46 @@ public class Test1Solutions {
 		    }
 		    return waitTime;
 	 }
+	 
+	 public static long waitingTime2(List<Integer> tickets, int p) {
+		 	int numOfTicketstoBuy = tickets.get(p);
+		    long waitTime = p+1;
+		    if(numOfTicketstoBuy-1>0) {
+		    	Queue<Integer> queue = new PriorityQueue<>();
+		    	for(int i=0;i<tickets.size(); i++) {
+		    		int t = tickets.get(i);
+		    		if(t-1>0 && i!=p) {
+		    			queue.offer(t-1);
+		    		}
+		    	}
+		    	int purchased = 1;
+		    	int currentLowest = 0;
+		    	int previousLowest = 0;
+		    	boolean done = false;
+		    	while(!done) {
+		    		if(queue.isEmpty()) {
+		    			waitTime += numOfTicketstoBuy-purchased+1;
+		    			done = true;
+		    		}else {
+		    			currentLowest = queue.remove()-previousLowest;
+			    		purchased += currentLowest;
+			    		if(purchased < numOfTicketstoBuy) {
+			    			waitTime += currentLowest*(queue.size()+1)+currentLowest;
+			    			previousLowest = currentLowest;
+			    		}else if(purchased > numOfTicketstoBuy) {
+			    			waitTime += (numOfTicketstoBuy-(purchased-currentLowest))*(queue.size()+1)+(numOfTicketstoBuy-(purchased-currentLowest));
+			    			done = true;
+			    		}else {
+			    			waitTime += currentLowest*(queue.size()+1)+currentLowest;
+			    			done = true;
+			    		}
+		    		}
+		    	}
+		    }
+		    return waitTime;
+	 }
+	 
+	 
 	
 	 class Validator {
 		    public boolean validate(String name) {
@@ -46,7 +87,7 @@ public class Test1Solutions {
 		}	 
 	 
 	 public class Encrypter{
-		    public String getExcryptedName(String name) throws IllegalArgumentException{
+		    public String getEncryptedName(String name) throws IllegalArgumentException{
 		    Validator validator = new Validator();
 		    	if(validator.validate(name)){
 		    		return new StringBuilder(name.toLowerCase()).reverse().toString();
@@ -70,6 +111,8 @@ public class Test1Solutions {
 		int p = 2;
 		
 		System.out.println(waitingTime(tickets,p));
+		System.out.println("--finish--");
+		System.out.println(waitingTime2(tickets,p));
 		System.out.println("--finish--");
 	}
 }

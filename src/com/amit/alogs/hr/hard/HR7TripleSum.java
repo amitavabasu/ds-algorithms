@@ -51,7 +51,7 @@ public class HR7TripleSum {
         int i=0;
         int j=0;
         while(i<abar.length && j<bbar.length) {
-            if(a[i]>b[j]) {
+            if(abar[i]>bbar[j]) {
                 left[j] = i;
                 j++;
             }else {
@@ -66,7 +66,7 @@ public class HR7TripleSum {
         i=0;
         j=0;
         while(i<cbar.length && j<bbar.length) {
-            if(c[i]>b[j]) {
+            if(cbar[i]>bbar[j]) {
                 right[j] = i;
                 j++;
             }else {
@@ -74,7 +74,7 @@ public class HR7TripleSum {
             }
         }
         while(j<bbar.length) {
-            right[j] = c.length;
+            right[j] = cbar.length;
             j++;
         }
         System.out.println(Arrays.toString(right));
@@ -82,7 +82,7 @@ public class HR7TripleSum {
         for(int k=0;k<left.length; k++) {
             sum += left[k]*right[k];
         }
-		long correct = 12603652660415L;
+		long correct = 17747701952583L;
 		System.out.println(sum-correct);
         return sum;
     }	
@@ -109,8 +109,8 @@ public class HR7TripleSum {
 		//test-2 getting: , correct: 17747701952583
 		//test-3 getting: 13172449832198, correct: 12603652660415
 		
-        //File file = new File("C:\\Users\\amita\\eclipse-workspace\\ds-algorithms\\test-dada\\TripleSum3.txt");
-		File file = new File("E:\\ds-algorithms\\test-dada\\TripleSum3.txt");
+        //File file = new File("C:\\Users\\amita\\eclipse-workspace\\ds-algorithms\\test-dada\\TripleSum.txt");
+		File file = new File("E:\\ds-algorithms\\test-dada\\TripleSum2.txt");
         Scanner scanner = new Scanner(file);
         String[] lenaLenbLenc = scanner.nextLine().split(" ");
         int lena = Integer.parseInt(lenaLenbLenc[0]);

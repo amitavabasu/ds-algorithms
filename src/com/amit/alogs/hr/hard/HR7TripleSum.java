@@ -10,8 +10,33 @@ import java.util.stream.Collectors;
 public class HR7TripleSum {
 	
 	static long triplets(int[] a, int[] b, int[] c) {
-		LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(Arrays.stream(a).boxed().collect(Collectors.toList()));
-        //Get back the array without duplicates
+		
+//		int[] abar = Arrays.stream(a).sorted().distinct().toArray();
+//	    int[] bbar = Arrays.stream(b).sorted().distinct().toArray();
+//	    int[] cbar = Arrays.stream(c).sorted().distinct().toArray();
+//	    
+//	    long left = 0;
+//	    long right = 0;
+//	    int l = 0;
+//		int r = 0;
+//		long sum = 0;
+//		
+//		for(int i=0; i< bbar.length; i++){
+//			while(l<abar.length && abar[l] <= bbar[i]){
+//				left++;
+//				l++;
+//			}
+//			
+//			while(r<cbar.length && cbar[r] <= bbar[i]){
+//				right++;
+//				r++;
+//			}
+//			sum += left*right;
+//		}
+//		long correct = 12603652660415L;
+//		System.out.println(sum-correct);
+//		return sum;
+        LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(Arrays.stream(a).boxed().collect(Collectors.toList()));
         Integer[] abar = linkedHashSet.toArray(new Integer[] {});
         linkedHashSet = new LinkedHashSet<>(Arrays.stream(b).boxed().collect(Collectors.toList()));
         //Get back the array without duplicates
@@ -19,49 +44,47 @@ public class HR7TripleSum {
         linkedHashSet = new LinkedHashSet<>(Arrays.stream(c).boxed().collect(Collectors.toList()));
         //Get back the array without duplicates
         Integer[] cbar = linkedHashSet.toArray(new Integer[] {});        
-		
-		Arrays.sort(abar);Arrays.sort(bbar);Arrays.sort(cbar);
-		int[] left = new int[bbar.length];
-		int[] right = new int[bbar.length];
-		int i=0;
-		int j=0;
-		while(i<abar.length && j<bbar.length) {
-			if(a[i]>b[j]) {
-				left[j] = i;
-				j++;
-			}else {
-				i++;
-			}
-		}
-		while(j<bbar.length) {
-			left[j] = abar.length;
-			j++;
-		}
-		System.out.println(Arrays.toString(left));
-		i=0;
-		j=0;
-		while(i<cbar.length && j<bbar.length) {
-			if(c[i]>b[j]) {
-				right[j] = i;
-				j++;
-			}else {
-				i++;
-			}
-		}
-		while(j<bbar.length) {
-			right[j] = c.length;
-			j++;
-		}
-		System.out.println(Arrays.toString(right));
-		long sum = 0;
-		for(int k=0;k<left.length; k++) {
-			sum += left[k]*right[k];
-		}
+        
+        Arrays.sort(abar);Arrays.sort(bbar);Arrays.sort(cbar);
+        long[] left = new long[b.length];
+        long[] right = new long[b.length];
+        int i=0;
+        int j=0;
+        while(i<abar.length && j<bbar.length) {
+            if(a[i]>b[j]) {
+                left[j] = i;
+                j++;
+            }else {
+                i++;
+            }
+        }
+        while(j<bbar.length) {
+            left[j] = abar.length;
+            j++;
+        }
+        System.out.println(Arrays.toString(left));
+        i=0;
+        j=0;
+        while(i<cbar.length && j<bbar.length) {
+            if(c[i]>b[j]) {
+                right[j] = i;
+                j++;
+            }else {
+                i++;
+            }
+        }
+        while(j<bbar.length) {
+            right[j] = c.length;
+            j++;
+        }
+        System.out.println(Arrays.toString(right));
+        long sum = 0;
+        for(int k=0;k<left.length; k++) {
+            sum += left[k]*right[k];
+        }
 		long correct = 12603652660415L;
 		System.out.println(sum-correct);
-		return sum;
-		//12603652660415
-		
+        return sum;
     }	
 	
 	public static void main(String[] args) throws IOException{
@@ -86,7 +109,8 @@ public class HR7TripleSum {
 		//test-2 getting: , correct: 17747701952583
 		//test-3 getting: 13172449832198, correct: 12603652660415
 		
-        File file = new File("C:\\Users\\amita\\eclipse-workspace\\ds-algorithms\\test-dada\\TripleSum3.txt");
+        //File file = new File("C:\\Users\\amita\\eclipse-workspace\\ds-algorithms\\test-dada\\TripleSum3.txt");
+		File file = new File("E:\\ds-algorithms\\test-dada\\TripleSum3.txt");
         Scanner scanner = new Scanner(file);
         String[] lenaLenbLenc = scanner.nextLine().split(" ");
         int lena = Integer.parseInt(lenaLenbLenc[0]);

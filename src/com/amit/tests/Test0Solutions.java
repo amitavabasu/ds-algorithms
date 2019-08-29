@@ -1,5 +1,6 @@
 package com.amit.tests;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -82,16 +83,24 @@ public class Test0Solutions {
     	return days-minGap;
     }
     
-    
+    static String timeConversion(String s) {
+    	DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("hh:mm:ssa");
+    	DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    	return outputFormatter.format(inputFormatter.parse(s));
+    }    
 	
 	public static void main(String[] args){
-		long[] machines = {4, 5, 6};
-		long goal = 12;
-		System.out.println(minTime(machines,goal));	
-		System.out.println("--finish--");
-		System.out.println(minTime2(machines,goal));
-		System.out.println("--finish--");
-		System.out.println(minTime3(machines,goal));		
-		System.out.println("--finish--");
+//		long[] machines = {4, 5, 6};
+//		long goal = 12;
+//		System.out.println(minTime(machines,goal));	
+//		System.out.println("--finish--");
+//		System.out.println(minTime2(machines,goal));
+//		System.out.println("--finish--");
+//		System.out.println(minTime3(machines,goal));		
+//		System.out.println("--finish--");
+		
+		String s = "07:05:45PM";
+		System.out.println(timeConversion(s));
+		
 	}
 }

@@ -125,8 +125,8 @@ public class Test2Solutions {
 		area.add(row);
 		row = new ArrayList<>();
 		row.add(1);
+		row.add(-1);
 		row.add(9);
-		row.add(1);
 		area.add(row);
 		System.out.println(sol.minimumDistance(numRows,numColumns,area));
 		System.out.println("--finish--");

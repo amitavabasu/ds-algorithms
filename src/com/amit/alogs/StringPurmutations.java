@@ -8,10 +8,11 @@ public class StringPurmutations {
 	 * Paul
 	 */
 	public static void main(String args[]) {
-		permutation("123");
+		permutation("1112");
 	}
 
-	/* * A method exposed to client to calculate permutation of String in Java. */ public static void permutation(
+	/* * A method exposed to client to calculate permutation of String in Java. */ 
+	public static void permutation(
 			String input) {
 		permutation("", input);
 	}
@@ -23,13 +24,12 @@ public class StringPurmutations {
 	 */
 	private static void permutation(String perm, String word) {
 		if (word.isEmpty()) { 
-			System.out.println("Permulation: "+perm + word); 
+			System.out.println("Permutation: "+perm + word); 
 		} else { 
 			for (int i = 0; i < word.length(); i++) {
 				System.out.println("("+perm+","+word+") Call: "+i+" ("+perm + word.charAt(i)+
 						","+word.substring(0, i) + word.substring(i + 1, word.length())+")");
-				permutation(perm + word.charAt(i), 
-						word.substring(0, i) + word.substring(i + 1, word.length())); 
+				permutation(perm + word.charAt(i), word.substring(0, i) + word.substring(i + 1, word.length())); 
 			}
 		} 
 	}

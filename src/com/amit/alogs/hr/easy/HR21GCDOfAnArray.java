@@ -1,6 +1,6 @@
 package com.amit.alogs.hr.easy;
 
-public class HR20GCDOfAnArray {
+public class HR21GCDOfAnArray {
 	
 	public static int gcd(int a, int b){
 		if(a==0){

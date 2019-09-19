@@ -284,12 +284,12 @@ public class TreeTraversal {
 		}
 	}
 	
-	public int heightByedges(Node root){
+	public int heightByEdges(Node root){
 		if(root==null || (root.left==null && root.right==null)){
 			return 0;
 		}
-		int lheight = heightByedges(root.left);
-		int rheight = heightByedges(root.right);
+		int lheight = heightByEdges(root.left);
+		int rheight = heightByEdges(root.right);
 		if(lheight>rheight){
 			return lheight+1;
 		}else{
@@ -378,6 +378,6 @@ public class TreeTraversal {
 //		tree.breadthFirstSearchLevelOrderRecursive(root);
 //		F, B, G, A, D, I, C, E, H
 //		System.out.println(tree.height(root));
-		System.out.println(tree.heightByedges(root));
+		System.out.println(tree.heightByEdges(root));
 	}
 }

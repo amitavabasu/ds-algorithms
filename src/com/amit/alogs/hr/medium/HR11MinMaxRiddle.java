@@ -34,7 +34,7 @@ public class HR11MinMaxRiddle {
     		}
     		if(!stack.empty())
     			left[i] = stack.peek();
-    		stack.push(i);//<-- push the index of right min element. Keep n=arr.length if not found/available
+    		stack.push(i);//<-- push the index of the left min element in left array. Keep -1 if not found/available
     	}
     	//Clear stack to be reused for left array
     	stack.clear();
@@ -45,7 +45,7 @@ public class HR11MinMaxRiddle {
     		}
     		if(!stack.empty())
     			right[i] = stack.peek();
-    		stack.push(i);//<-- push the index of the left min element in left array. Keep -1 if not found/available
+    		stack.push(i);//<-- push the index of right min element. Keep n=arr.length if not found/available
     	}
     	long[] res = new long[arr.length];
     	//Iterate over the left and right array calculating the window size

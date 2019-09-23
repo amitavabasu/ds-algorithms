@@ -90,17 +90,17 @@ public class Test0Solutions {
     }    
 	
 	public static void main(String[] args){
-//		long[] machines = {4, 5, 6};
-//		long goal = 12;
-//		System.out.println(minTime(machines,goal));	
-//		System.out.println("--finish--");
-//		System.out.println(minTime2(machines,goal));
-//		System.out.println("--finish--");
-//		System.out.println(minTime3(machines,goal));		
-//		System.out.println("--finish--");
+		long[] machines = {4, 5, 6};
+		long goal = 12;
+		System.out.println(minTime(machines,goal));	
+		System.out.println("--finish--");
+		System.out.println(minTime2(machines,goal));
+		System.out.println("--finish--");
+		System.out.println(minTime3(machines,goal));		
+		System.out.println("--finish--");
 		
-		String s = "07:05:45PM";
-		System.out.println(timeConversion(s));
+//		String s = "07:05:45PM";
+//		System.out.println(timeConversion(s));
 		
 	}
 }

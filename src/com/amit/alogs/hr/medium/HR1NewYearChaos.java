@@ -23,12 +23,12 @@ public class HR1NewYearChaos {
 			}
 			int expectedElementIndex = element-1;
 			int shiftOfThisElement = expectedElementIndex-j;
-			if(shiftOfThisElement>2){
+			if(shiftOfThisElement>2){//<-- if shift is more than 2 just return
 				System.out.println("Too chaotic");
 				return;
 			}else{
 				bribeCount = bribeCount+shiftOfThisElement;
-				for(int k=0; k<shiftOfThisElement; k++){
+				for(int k=0; k<shiftOfThisElement; k++){//<-- put the element in the right place, and shift all the elements
 					int temp = q[j];
 					q[j] = q[j+1];
 					q[j+1] = temp;

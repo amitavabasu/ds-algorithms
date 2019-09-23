@@ -3,8 +3,15 @@ package com.amit.alogs.hr.hard;
 import java.io.*;
 import java.util.*;
 
-public class HR3AverageWaitTime {
+/*
+ * Find average wait time in pizza store
+ */
 
+public class HR3AverageWaitTime {
+	
+	/*
+	 * Task is the class which holds two important data of a customer, arrival time and service time
+	 */
 	public static class Task{
 		public int arrivalTime;
 		public int serviceTime;
@@ -14,7 +21,9 @@ public class HR3AverageWaitTime {
 		}
 	}
 	
-    
+	/*
+	 * This is a comparator which compare two tasks by arrival time returning first arrival first 
+	 */
     public static class ArrivalTimeComparator implements Comparator<Task>{
 		@Override
 		public int compare(Task o1, Task o2) {
@@ -27,7 +36,10 @@ public class HR3AverageWaitTime {
 			}
 		}
     }
-    
+
+	/*
+	 * This is a comparator which compare two tasks by service time returning lowest service time first 
+	 */
     public static class ServiceTimeComparator implements Comparator<Task>{
 		@Override
 		public int compare(Task o1, Task o2) {
@@ -44,63 +56,60 @@ public class HR3AverageWaitTime {
     
 	
 	/*
-     * Complete the minimumAverage function below.
+     * Minimum average calculation
      */
     static long minimumAverage(int[][] customers) {
-        /*
-         * Write your code here.
-         */
     	int N = customers.length;
     	List<Task> tasks = new ArrayList<>();
-    	for(int i=0; i<N; i++){
+    	for(int i=0; i<N; i++){//<-- create & add tasks in an array list
     		Task t = new Task(customers[i][0],customers[i][1]);
     		tasks.add(t);
     	}
-    	Collections.sort(tasks,new ArrivalTimeComparator());
+    	Collections.sort(tasks,new ArrivalTimeComparator()); //<-- sort the array list by arrival time
     	long currentTime = 0;
     	long serviceTimeForThisTask = 0;
     	long waitTimeDueToPreviousTasks = 0;
     	long totalWaitTime = 0;
     	long cumulativeWaitTime = 0;
     	boolean done = false;
-    	int i = 0;
-    	PriorityQueue<Task> queue = new PriorityQueue<>(new ServiceTimeComparator());
-    	Task t = tasks.get(i);
+    	int i = 0;//<-- index of the current task we are processing
+    	PriorityQueue<Task> queue = new PriorityQueue<>(new ServiceTimeComparator());//Use a priority queue (heap) to store the tasks which arrives when one task is going on. This is so that we can pickup the task which needs least service time
+    	Task t = tasks.get(i);//<-- start with first arrived task
     	serviceTimeForThisTask = t.serviceTime;
-    	totalWaitTime = serviceTimeForThisTask+waitTimeDueToPreviousTasks;
-    	currentTime = t.arrivalTime+totalWaitTime;
+    	totalWaitTime = serviceTimeForThisTask+waitTimeDueToPreviousTasks;//<-- calculate total time
+    	currentTime = t.arrivalTime+totalWaitTime;//<-- this is the time when this task will finish
     	cumulativeWaitTime = cumulativeWaitTime+totalWaitTime; 
     	//System.out.println("----------");
     	while(!done){
     		//System.out.println(t.arrivalTime+"  "+t.serviceTime+"  "+currentTime+"  "+serviceTimeForThisTask+"  "+totalWaitTime+" "+cumulativeWaitTime);
-    		while(i+1<tasks.size() && tasks.get(i+1).arrivalTime <= currentTime){
-    			queue.offer(tasks.get(i+1));
-    			i++;
+    		while(i+1<tasks.size() && tasks.get(i+1).arrivalTime <= currentTime){//<-- take all tasks arriving while the current task finishes
+    			queue.offer(tasks.get(i+1));//<-- put them in queue
+    			i++;//<-- increment current task index
     		}
-    		if(queue.isEmpty()){
-    			if(i+1>=tasks.size()){
-    				done = true;
-    			}else{
-    				t = tasks.get(i+1);
+    		if(queue.isEmpty()){//<-- if no tasks in queue
+    			if(i+1>=tasks.size()){//<-- check if any more tasks needs to be processed
+    				done = true;//<-- if not set done as true
+    			}else{//<-- otherwise at this point queue is empty but have more task to process
+    				t = tasks.get(i+1);//<-- pickup the next task
     				serviceTimeForThisTask = t.serviceTime;
     				waitTimeDueToPreviousTasks = 0;
     				totalWaitTime = serviceTimeForThisTask + waitTimeDueToPreviousTasks;
-    				currentTime = t.arrivalTime+serviceTimeForThisTask;
+    				currentTime = t.arrivalTime+serviceTimeForThisTask; //<-- calculate time when this task will finish
     				cumulativeWaitTime = cumulativeWaitTime+totalWaitTime;
-    				i++;
+    				i++;//<-- increment process task count
     			}
-    		}else{
-    			t = queue.remove();
+    		}else{//<-- when queue is not empty
+    			t = queue.remove();//<-- remove the next task in queue 
     			serviceTimeForThisTask = t.serviceTime;
     			waitTimeDueToPreviousTasks = currentTime - t.arrivalTime;
-    			totalWaitTime = serviceTimeForThisTask + waitTimeDueToPreviousTasks;
+    			totalWaitTime = serviceTimeForThisTask + waitTimeDueToPreviousTasks;//<-- calculate total wait time
     			currentTime = currentTime+serviceTimeForThisTask;
-    			cumulativeWaitTime = cumulativeWaitTime+totalWaitTime;
+    			cumulativeWaitTime = cumulativeWaitTime+totalWaitTime;//<-- calculate cumulative wait time as well
     		}
     	}
     	//System.out.println(cumulativeWaitTime);
     	//System.out.println(cumulativeWaitTime/N);
-    	return  ((cumulativeWaitTime/N));
+    	return  ((cumulativeWaitTime/N));//<-- finally return average wait time
     }
 
     //private static final Scanner scanner = new Scanner(System.in);

@@ -18,7 +18,7 @@ public class HR7TripleSum {
 	 */
 	
 	static long triplets(int[] a, int[] b, int[] c) {
-		//Get the array abar from a without duplicates using LinkedHashSet
+		//Get the array abar without duplicates using LinkedHashSet
         LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(Arrays.stream(a).boxed().collect(Collectors.toList()));
         Integer[] abar = linkedHashSet.toArray(new Integer[] {});
         //Get back the array bbar without duplicates

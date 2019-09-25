@@ -8,7 +8,7 @@ public class StringPurmutations {
 	 * Paul
 	 */
 	public static void main(String args[]) {
-		permutation("1112");
+		permutation("ABC");
 	}
 
 	/* * A method exposed to client to calculate permutation of String in Java. */ 
@@ -22,14 +22,16 @@ public class StringPurmutations {
 	 * but since we are passing an empty String * as current permutation to start
 	 * with, * I have made this method private and didn't exposed it to client.
 	 */
-	private static void permutation(String perm, String word) {
-		if (word.isEmpty()) { 
-			System.out.println("Permutation: "+perm + word); 
+	private static void permutation(String perm, String word) {//<-- recursive method to call with initial permutation. At the beginning the permutation is a empty string  
+		if (word.isEmpty()) {//<-- if word is empty, print the permutation 
+			System.out.println("Permutation: "+perm + word);
 		} else { 
-			for (int i = 0; i < word.length(); i++) {
-				System.out.println("("+perm+","+word+") Call: "+i+" ("+perm + word.charAt(i)+
-						","+word.substring(0, i) + word.substring(i + 1, word.length())+")");
-				permutation(perm + word.charAt(i), word.substring(0, i) + word.substring(i + 1, word.length())); 
+			for (int i = 0; i < word.length(); i++) {//<-- else for each character
+//				System.out.println("("+perm+","+word+") Call: "+i+" ("+perm + word.charAt(i)+
+//						","+word.substring(0, i) + word.substring(i + 1, word.length())+")");
+				permutation(perm + word.charAt(i),//<-- pickup the current character and append with perm and put that as perm as recursive call 
+						word.substring(0, i) + word.substring(i + 1, word.length()) //<-- get the rest of the substring of current word and sent than word parameter
+				);
 			}
 		} 
 	}

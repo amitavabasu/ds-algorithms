@@ -9,89 +9,69 @@ import java.util.Stack;
 
 public class HR9PoisonusPlants {
     static int poisonousPlants(int[] p) {
-    	int dayCount = 0;
+    	int dayCount = 0;//<-- initialize how many days after the plant will survive
     	if(p==null || p.length==0)
     		return dayCount;
-    	List<Stack<Integer>> list = new LinkedList<>();
+    	List<Stack<Integer>> list = new LinkedList<>();//<-- use a linked list to hold a stack (a list again)
     	//preparation
-    	int i=p.length-1;
-    	while(i>=0){
-    		int j=i-1;
-    		Stack<Integer> stack = new Stack<>();
-    		stack.push(p[i]);
-    		while(j>=0 && p[j]>=p[i]){
-    			stack.push(p[j]);
-    			j--;
+    	int i=p.length-1;//<-- initialize i to the last index
+    	while(i>=0){//<-- until first index reached
+    		int j=i-1;//<-- initialize j to the element before i-th element
+    		Stack<Integer> stack = new Stack<>();//<-- create a new stack
+    		stack.push(p[i]);//<-- push the i-th element in the stack
+    		while(j>=0 && p[j]>=p[i]){//<-- while j is not reached first element and previous element grater than equal to current
+    			stack.push(p[j]);//<-- push that element in stack
+    			j--;//<-- decrement both i & j 
     			i--;
     		}
-    		list.add(stack);
-    		i=j;
+    		list.add(stack);//<-- add this stack or list to the list
+    		i=j;//<-- set i to j to traverse rest of the array
     	}
+    	//FOR TEST ONLY
     	for(Stack<Integer> stack:list){
     		System.out.println(Arrays.toString(stack.toArray()));
     	}
-    	System.out.println("------------------------------1");
-    	while(list.size()>1){
-            Iterator<Stack<Integer>>  it = list.iterator();
-            int count = list.size()-1;
-            while(it.hasNext() && count>0){
-                Stack<Integer> stack = it.next();
-                if(stack!=null && !stack.isEmpty()){
+    	while(list.size()>1){//<-- until there is only one stack left on the list
+            Iterator<Stack<Integer>>  it = list.iterator();//<-- get the iterator of the list
+            int count = list.size()-1;//<-- initialize count to the last index of the adday
+            while(it.hasNext() && count>0){//<-- until iterator have more element and contains more than 1
+                Stack<Integer> stack = it.next();//<-- get the stack from the list
+                if(stack!=null && !stack.isEmpty()){//<-- if that stack is not empty pop out that topmost element
                     stack.pop();
                 }
-                if(stack==null || stack.isEmpty()){
+                if(stack==null || stack.isEmpty()){//<-- if after poping out the last element if the stack become empty or null, remove it from the outer list 
                     it.remove();
                 }
-                count--;
+                count--;//<-- decrement count
     		}
-    		dayCount++;
+    		dayCount++;//<-- at this moment we completed one day
+    		//FOR TEST ONLY
         	for(Stack<Integer> stack:list){
         		System.out.println(Arrays.toString(stack.toArray()));
         	}
-        	System.out.println("------------------------------2");
-    		//Prepare for next day
-    		//pickup last two stacks from the list
-        	it = list.iterator();
-        	Stack<Integer> stack1 = null;
+    		//Now prepare for next day
+    		//pickup last two stacks from the list, and see if they can be merged or not
+        	it = list.iterator();//<-- get an iterator of the list
+        	Stack<Integer> stack1 = null;//<-- stack one
         	if(it.hasNext()) {
-        		stack1 = it.next();
+        		stack1 = it.next();//<-- get stack one
         	}
-    		while(it.hasNext()){
-       			Stack<Integer> stack2 = it.next();
-       			if(!stack2.isEmpty() && !stack1.isEmpty() && stack2.firstElement()>=stack1.peek()){
-       				//a merge is possible
-   					stack1.addAll(stack2);
-       				//stack2.addAll(0,stack1);
-   					it.remove();
-       				//set stack 2 as null
-//       				list.set(i+1, stack1);
-//       				list.set(i, null);
-//       				i++;
+    		while(it.hasNext()){//<-- when have more than one stack in the list
+       			Stack<Integer> stack2 = it.next();//<-- pickup stack2
+       			if(!stack2.isEmpty() && !stack1.isEmpty() && stack2.firstElement()>=stack1.peek()){//<-- when none of the stack are empty compare first element with the last element
+       				//If stack2 first element is grater or equal to stack1 first element a a merge is possible.
+   					stack1.addAll(stack2);//<-- merge the stack in a single statement
+   					it.remove();//<-- now if a merge possible then iterator pointing to the second element and the and it got merged to the first element, so remove the second/current element using iterator
        			}else{
-       				stack1 = stack2;
+       				stack1 = stack2;//<-- if two list is not mergable, move stack1 to stack2 and next stack two will be picked up in next iteration 
        			}
     		}
+    		//FOR TEST ONLY
         	for(Stack<Integer> stack:list){
         		System.out.println(stack==null?"null":Arrays.toString(stack.toArray()));
         	}
-        	System.out.println("------------------------------3");
-    		it = list.iterator();
-//    		while(it.hasNext()) {
-//    			Stack<Integer> temp = it.next();
-//    			if(temp==null || temp.size()==0) {
-//    				it.remove();
-//    			}
-//    		}
-        	for(Stack<Integer> stack:list){
-        		System.out.println(Arrays.toString(stack.toArray()));
-        	}
-        	System.out.println("------------------------------4");
     	}
-    	for(Stack<Integer> stack:list){
-    		System.out.println(Arrays.toString(stack.toArray()));
-    	}
-    	System.out.println("------------------------------5");
-   	return dayCount;
+   	return dayCount;//<-- return the day count
     }
 	public static void main(String[] args) throws IOException {
 		//int[] p = {6, 5, 8, 7, 4, 7, 3, 1, 1, 10};

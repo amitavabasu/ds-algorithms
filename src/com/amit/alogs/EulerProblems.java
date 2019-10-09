@@ -1,5 +1,7 @@
 package com.amit.alogs;
 
+import java.util.Arrays;
+
 public class EulerProblems {
 
 	public static long sumOdMultipleOfTwoGivenNumbers(int a, int b, int limit){
@@ -205,16 +207,91 @@ public class EulerProblems {
 		    System.out.println(s);
 	}
 	
+	//static int[] isPrime = new int[1000000007];
+	static int[] primes = new int[20000];
+	
+    static String primality(int n) {
+    	if(n==1|| n==0){
+    		return "Not primt";
+    	}
+//        if(isPrime[n]==1){
+//            return "Prime";
+//        }else if(isPrime[n]==-1){
+//        	return "Not prime";
+//        }else{
+        	int sqrt = (int)Math.sqrt(n);
+    		if(checkPrime(n, sqrt)){
+    			//isPrime[n] = 1;
+    			return "Prime";
+    		}else{
+    			//isPrime[n] = -1;
+    			return "Not prime";
+    		}
+//        }
+    }
+    
+    static boolean checkPrime(int n, int sqrt){
+		boolean isPrime = true;
+		boolean done = false;
+		for(int i=0; primes[i]<=sqrt; i++){
+			if(primes[i]==0){
+				generatePrime(i);
+			}
+			int divisor = primes[i];
+			if(divisor<=sqrt){
+				if(n%divisor==0){
+					isPrime = false;
+					break;
+				}
+			}else{
+				break;
+			}
+		}
+		return isPrime;
+    }
+    
+    static void generatePrime(int num){
+    	int n = primes[num-1]+2;
+		boolean done = false;
+		while(!done){
+			boolean flag = true;
+			for(int i=0; (i<num) && (primes[i]!=0) && primes[i]<=Math.sqrt(n); i++){
+				long diviser = primes[i];
+				if(n%diviser==0){
+					flag = false;
+					break;
+				}
+			}
+			if(flag){
+				primes[num]=n;
+				done = true;
+			}else{
+				n +=2;
+			}
+		}
+    }
+	
+	
 	
 	public static void main(String[] args){
-		System.out.println(sumOdMultipleOfTwoGivenNumbers(3,5,1000));
+		//System.out.println(sumOdMultipleOfTwoGivenNumbers(3,5,1000));
 		//System.out.println(fibonaciiSum(4000000));
 		//System.out.println(primeFactors(600851475143L));
 		//System.out.println(isPalindrome("abaaaaa"));
 		//System.out.println(higestPalindrome(5));
-		//System.out.println(nthPrime(10001));
+		System.out.println(nthPrime(10001));
 		//generateNumbersWhichAreSumOfTheFactOfItsDigits(3);
 		//sumOfPower();
+//		isPrime[2] = 1;
+//		isPrime[3] = 1;
+//		isPrime[5] = 1;
+//		isPrime[7] = 1;
+		primes[0] = 2;
+		primes[1] = 3;
+		primes[2] = 5;
+		primes[3] = 7;
+		System.out.println(primality(1000000008));
+		System.out.println(Arrays.toString(primes));
 	}
 	
 }

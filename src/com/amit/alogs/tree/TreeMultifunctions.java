@@ -199,6 +199,21 @@ public class TreeMultifunctions {
 		}
 	}
 	
+	
+	public static TNode insertIntoBST(TNode root, int data){
+		if(root==null)
+			return new TNode(data);
+		TNode cur;
+		if(root.data >= data){
+			cur = insertIntoBST(root.left,data);
+			root.left = cur;
+		}else{
+			cur = insertIntoBST(root.right, data);
+			root.right = cur;
+		}
+		return root;
+	}
+	
 	public static TNode insert(TNode root, int data) {
         if(root == null) {
             return new TNode(data);
@@ -216,29 +231,38 @@ public class TreeMultifunctions {
     }
 	
 	public static Map<Integer, Integer> topMap = new TreeMap<>();
-	public static void topView(TNode root) {
-        findTop(root,0);
-        List<Integer> keys = new ArrayList<Integer>(topMap.keySet());
-        //Collections.sort(keys);
-        for(Integer index:keys){
-            System.out.print(topMap.get(index)+" ");
-        }
-    }
-
-    public static void findTop(TNode node, int index){//<-- this one is wrong, we need breadth-first-traversal (level-order-travesal)
-        if(node==null){
-            return;
-        }else{
-            //Integer checkValue = topMap.get(index);
-            if(!topMap.containsKey(index)){
-                topMap.put(index,node.data);
-            }else{
-            	//topMap.put(index, node.data);
-            }
-            findTop(node.left, index-1);
-            findTop(node.right, index+1);
-        }
-    }
+	
+	public static void topViewOfTree(TNode root){
+		class NodeWithOffset{
+			TNode node;
+			int offset;
+			public NodeWithOffset(TNode node, int offset){
+				this.node = node;
+				this.offset = offset;
+			}
+		}
+		if(root==null){
+			return;
+		}else{
+			Queue<NodeWithOffset> queue = new LinkedList<>();
+			queue.offer(new NodeWithOffset(root, 0));
+			while(!queue.isEmpty()){
+				NodeWithOffset no = queue.remove();
+				if(!topMap.containsKey(no.offset)){
+					topMap.put(no.offset, no.node.data);
+				}
+				if(no.node.left!=null){
+					queue.offer(new NodeWithOffset(no.node.left, no.offset-1));
+				}
+				if(no.node.right!=null){
+					queue.offer(new NodeWithOffset(no.node.right, no.offset+1));
+				}
+			}
+		}
+        for (Entry<Integer, Integer> entry : topMap.entrySet()) { 
+            System.out.print(entry.getValue()+" "); 
+        } 		
+	}
     
 	public static void topView2(TNode root) {
 		class QueueObj {
@@ -291,7 +315,7 @@ public class TreeMultifunctions {
 		}
 	}
 	
-	public static TNode lowestCommonAncestorNonRecursive(TNode root, int v1, int v2){//<-- port-order-traversal
+	public static TNode lowestCommonAncestorNonRecursive(TNode root, int v1, int v2){//<-- post-order-traversal
 		while(root!=null){
 			if(root.data > v1 && root.data > v2){
 				root = root.left;
@@ -385,7 +409,8 @@ public class TreeMultifunctions {
 //		}
 //		System.out.println(lca(root,1,7).data);
 //		TNode root = buildTree();
-		System.out.println(checkBSTRecursive(root));
-		System.out.println(checkBSTNonRecursive(root));
+		topView2(root);
+		System.out.println();
+		topViewOfTree(root);
 	}
 }

@@ -8,7 +8,7 @@ public class HR5EqualStacks {
          */
         int lastSameHeight = 0;
         if(h1==null || h1.length==0 || h2==null || h2.length==0 || h3==null || h3.length==0)
-        return lastSameHeight;//<-- to store last calculated same height
+        	return lastSameHeight;//<-- to store last calculated same height
         int i1 = h1.length-1;//<-- start all indexes from length-1
         int i2 = h2.length-1;
         int i3 = h3.length-1;

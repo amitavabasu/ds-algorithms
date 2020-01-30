@@ -152,14 +152,15 @@ public class HR12LargetRectangle {
 	public static void main(String[] args) {
 		//int[] h = {5,4,3,2,1};
 		//int[] h = {1,2,3,4,5};
-		//int[] h = {8979, 4570, 6436, 5083, 7780, 3269, 5400, 7579, 2324, 2116};
+		int[] h = {8979, 4570, 6436, 5083, 7780, 3269, 5400, 7579, 2324, 2116};
 		//int[] h = {1,2,3,4,5,4,6,2,1};
-		int[] h = {20,25,20,20,20,19};
+		//int[] h = {20,25,20,20,20,19};
 		//int[] h = {20,25,20,20,5};
 		//int[] h = {5,25,20,20,20,19};
 		//int[] h = {20,25,20,20,5};
 		System.out.println(Arrays.toString(h));
 		System.out.println(largestRectangle(h));
 		System.out.println(largestRectangleExp(h));
+		System.out.println(HR12LargetRectangleDup1.largestRectangle(h));
 	}
 }

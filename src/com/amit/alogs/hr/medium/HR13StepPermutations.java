@@ -23,7 +23,7 @@ public class HR13StepPermutations {
 	}
 
 	public static void main(String[] args){
-		int n = 4;
+		int n = 25;
 		int[] memory = new int[n+1];//<-- create a memory 1 more than n
 		memory[0] = 0; //<-- set initial as 0
 		if(n>=1)
@@ -33,6 +33,7 @@ public class HR13StepPermutations {
 		if(n>=3)
 			memory[3] = 4;//<-- set 3 as 4
 		System.out.println(stepPerms(n, memory));
+		System.out.println(HR13StepPermutationsDup2.stepPerms(n, memory));
 	}
 	
 	

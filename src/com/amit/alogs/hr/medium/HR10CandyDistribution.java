@@ -21,6 +21,7 @@ public class HR10CandyDistribution {
 		int preDistNum;
 		distribution[0] = curDistNum;
 		preDistNum = curDistNum;
+		System.out.println(Arrays.toString(arr));
 		for(int i=1; i<arr.length; i++){
 			int cur = arr[i];
 			int pre = arr[i-1];
@@ -52,9 +53,10 @@ public class HR10CandyDistribution {
 	}
 	
 	public static void main(String[] args) {
-		//int[] arr = {2,4,2,6,1,7,8,9,2,1};
-		int[] arr = {2,4,3,5,2,6,4,5};
+		int[] arr = {2,4,2,6,1,7,8,9,2,1};
+		//int[] arr = {2,4,3,5,2,6,4,5};
 		System.out.println(candies(arr.length,arr));
+		System.out.println(HR10CandyDistributionDup2.candies(arr.length, arr));
 	}
 	
 	 

@@ -7,7 +7,6 @@ import java.util.List;
 public class HR17DiagolanSumOf2DList {
 	
     public static int diagonalDifference(List<List<Integer>> arr) {
-    // Write your code here
     if(arr==null || arr.size()==0){
         return 0;
     }

@@ -28,7 +28,6 @@ public class HR15MaxArraySumWithinAWindow {
 		int maxSum = Integer.MIN_VALUE;
 		int sum = 0;
 		int i=0;
-		int j=0;
 		while(i<arr.length){
 			if(i<window){
 				sum = sum+arr[i];
@@ -37,9 +36,8 @@ public class HR15MaxArraySumWithinAWindow {
 				if(sum>maxSum){
 					maxSum = sum;
 				}
-				sum = sum-arr[j]+arr[i];
+				sum = sum-arr[i-window]+arr[i];
 				i++;
-				j++;
 			}
 		}
 		if(sum>maxSum){

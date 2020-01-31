@@ -51,7 +51,9 @@ public class MergeSort {
 	
     static long mergeSortAndIountInversions(int[] arr) {//<-- start method
     	int[] res = new int[arr.length];
-		return mergeSort(arr, res, 0, arr.length-1);//<-- call merge sort for the entire array length 0 to length-1
+		long invCount = mergeSort(arr, res, 0, arr.length-1);//<-- call merge sort for the entire array length 0 to length-1
+		System.out.println(Arrays.toString(res));
+		return invCount;
     }
     
     static long inversionCount(int[] arr) {//<-- alternate inversion count to check the validity of merge sort based inversion count
@@ -69,15 +71,19 @@ public class MergeSort {
     
 	
 	public static void main(String[] s) {
+		//int[] arr = {2,1};		
 		//int[] arr = {7, 5, 3, 1};
-		int[] arr = {2, 1, 3, 1, 2};
-		//int[] arr = {2, 4, 1, 3, 5, 6};
-		int[] res = new int[arr.length];
-		System.out.println(inversionCount(arr));
-		System.out.println(mergeSortAndIountInversions(arr));
-		//System.out.println(countInversions(arr));
+		//int[] arr = {2, 1, 3, 1, 2};
+		int[] arr = {2, 4, 1, 3, 5, 6};
+		
 		System.out.println(Arrays.toString(arr));
-		System.out.println(Arrays.toString(res));
-		System.out.println(inversionCount(arr));
+		System.out.println("Correct: "+inversionCount(arr));
+		System.out.println(mergeSortAndIountInversions(arr));
+		
+		//int[] arr2 = {2,1};
+		//int[] arr2 = {7, 5, 3, 1};
+		//int[] arr2 = {2, 1, 3, 1, 2};
+		int[] arr2 = {2, 4, 1, 3, 5, 6};
+		System.out.println(MergeSortDup1.mergeSortAndIountInversions(arr2));
 	}
 }

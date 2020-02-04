@@ -99,9 +99,82 @@ public class Test0Solutions {
 		System.out.println("--finish--");
 		System.out.println(minTime3(machines,goal));		
 		System.out.println("--finish--");
-		
+		System.out.println(minTimeToAchiveGoal(machines,goal));		
+		System.out.println("--finish--");
 //		String s = "07:05:45PM";
 //		System.out.println(timeConversion(s));
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	static long minTimeToAchiveGoal(long[] machines, long goal) {
+		if(machines==null || machines.length==0) {
+			return -1l;
+		}
+		if(goal<=0)
+			return 0;
+		long minDays = 0;
+		long max = machines[0];
+		for(long m:machines) {
+			if(m>max) {
+				max = m;
+			}
+		}
+		long maxDays = goal*max;
+		long result = 0l;
+		while(maxDays>minDays) {
+			long searchDay = (minDays+maxDays)/2;
+			long totalUnitsGeneratedOnSearchDay = 0;
+			for(long m:machines) {
+				totalUnitsGeneratedOnSearchDay += searchDay/m;
+			}
+			if(totalUnitsGeneratedOnSearchDay < goal) {
+				searchDay += 1;
+				minDays = searchDay+1;
+			}else {
+				result = searchDay;
+				maxDays = searchDay;
+			}
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -105,8 +105,8 @@ public class Test1Solutions {
 		List<Integer> tickets = new ArrayList<>();
 		tickets.add(2);
 		tickets.add(6);
-		tickets.add(3);
 		tickets.add(4);
+		tickets.add(2);
 		tickets.add(5);
 		int p = 2;
 		

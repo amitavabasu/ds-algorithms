@@ -17,7 +17,7 @@ public class HR9StringAbbriviation {
 			char c = a.charAt(i);
 			if(Character.isUpperCase(c)||upperExists) {
 				memory[i+1][0]=false;//<-- set to false if upper case exists
-				upperExists = false;
+				upperExists = true;
 			}else {
 				memory[i+1][0] = true;//<-- else set to true
 			}

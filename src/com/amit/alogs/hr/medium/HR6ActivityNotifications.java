@@ -56,6 +56,7 @@ public class HR6ActivityNotifications {
                     }    
             	}
             }
+    		System.out.println("-"+median+"-");
             int spending = expenditure[i];//<-- get current spending/expenditure
             if(spending>=(median*2)){//<-- check if expenditure exceeds median or not based on that take action
                 notfCount++;//<-- the action in this case to increase notification count
@@ -146,12 +147,13 @@ public class HR6ActivityNotifications {
     }    
 
     public static void main(String[] args){
-//    	int d = 5;
-//    	int[] expenditure = {2, 3, 4, 2, 3, 6, 8, 4, 5};
+    	int d = 5;
+    	int[] expenditure = {2, 3, 4, 2, 3, 6, 8, 4, 5};
     	
-    	int d = 3;
-    	int[] expenditure = {10, 20, 30, 40, 50};
+//    	int d = 3;
+//    	int[] expenditure = {10, 20, 30, 40, 50};
 
     	System.out.println(activityNotifications(expenditure, d));
+    	System.out.println(HR6ActivityNotificationsDup1.activityNotifications(expenditure, d));
     }
 }

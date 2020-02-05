@@ -1,32 +1,5 @@
 package com.amit.concurrency;
 
-//class Buffer {
-//   private char [] buffer;
-//   private int count = 0, in = 0, out = 0;
-//
-//   Buffer(int size)
-//   {
-//      buffer = new char[size];
-//   }
-// 
-//   public synchronized void Put(char c) {
-//     while(count == buffer.length) ;
-//     System.out.println("Producing " + c + " ...");
-//     buffer[in] = c; 
-//     in = (in + 1) % buffer.length; 
-//     count++;
-//   }
-//    
-//   public synchronized char Get() {
-//     while (count == 0) ;
-//     char c = buffer[out]; 
-//     out = (out + 1) % buffer.length;
-//     count--;
-//     System.out.println("Consuming " + c + " ...");
-//     return c;
-//   }
-//}
-
 class Buffer {
     private char [] buffer;
     private int count = 0, in = 0, out = 0;
@@ -36,7 +9,7 @@ class Buffer {
          buffer = new char[size];
     }
 
-    public synchronized void Put(char c) {
+    public synchronized void put(char c) {
          while(count == buffer.length) 
          {
               try { wait(); }
@@ -50,7 +23,7 @@ class Buffer {
          notify(); 
     }
 
-    public synchronized char Get() {
+    public synchronized char get() {
          while (count == 0) 
          {
               try { wait(); }
@@ -73,7 +46,7 @@ class Producer extends Thread {
    Producer(Buffer b) { buffer = b; }
    public void run() {
      for(int i = 0; i < 26; i++) {
-        buffer.Put((char)('A'+ i%26 )); }
+        buffer.put((char)('A'+ i%26 )); }
    }
 }    
 
@@ -83,7 +56,7 @@ class Consumer extends Thread {
    Consumer(Buffer b) { buffer = b; }
    public void run() {
      for(int i = 0; i < 26; i++) {
-        buffer.Get(); }
+        buffer.get(); }
    }
 }
 

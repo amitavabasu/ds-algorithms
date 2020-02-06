@@ -1,5 +1,7 @@
 package com.amit.alogs;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MergeSort {
 	
@@ -67,6 +69,36 @@ public class MergeSort {
     	return invCount;
     }
     
+    static Queue<Integer> queue = new LinkedList<>();
+    static int seqCount = 1;
+    static void countContSeq(int[] arr) {
+    	for(int i=0; i<arr.length; i++) {
+    		queue.add(i);
+    	}
+    	boolean done = false;
+    	while(!done) {
+    		System.out.println(queue.toString());
+	    	Queue<Integer> newQueue = new LinkedList<>();
+	    	boolean found = false;
+	    	while(!queue.isEmpty()) {
+	    		int i = queue.remove();
+	    		for(int j=i; j<arr.length; j++) {
+	    			if(arr[j]>arr[i]) {
+	    				if(!newQueue.contains(j))
+	    					newQueue.add(j);
+	    				found = true;
+	    			}
+	    		}
+	    	}
+			if(found) {
+				seqCount++;
+				queue = newQueue;
+			}else {
+				done = true;
+			}
+    	}
+    	System.out.println(seqCount);
+    }
     
     
 	
@@ -74,16 +106,18 @@ public class MergeSort {
 		//int[] arr = {2,1};		
 		//int[] arr = {7, 5, 3, 1};
 		//int[] arr = {2, 1, 3, 1, 2};
-		int[] arr = {2, 4, 1, 3, 5, 6};
-		
-		System.out.println(Arrays.toString(arr));
-		System.out.println("Correct: "+inversionCount(arr));
-		System.out.println(mergeSortAndIountInversions(arr));
+		//int[] arr = {2, 4, 1, 3, 5, 6};
+		int[] arr = {3, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
+		//int[] arr = {1, 2, 1, 5};
+//		System.out.println(Arrays.toString(arr));
+//		System.out.println("Correct: "+inversionCount(arr));
+//		System.out.println(mergeSortAndIountInversions(arr));
 		
 		//int[] arr2 = {2,1};
 		//int[] arr2 = {7, 5, 3, 1};
 		//int[] arr2 = {2, 1, 3, 1, 2};
-		int[] arr2 = {2, 4, 1, 3, 5, 6};
-		System.out.println(MergeSortDup1.mergeSortAndIountInversions(arr2));
+//		int[] arr2 = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,0};
+//		System.out.println(MergeSortDup1.mergeSortAndIountInversions(arr2));
+		countContSeq(arr);
 	}
 }

@@ -1,5 +1,7 @@
 package com.amit.concurrency;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
@@ -8,7 +10,7 @@ public class ProducerConsumerSemaphore {
 
 		private static final int BUFFER_SIZE = 4;
 		private static final int MAX_VALUE = 10000;
-		private final Stack<Integer> buffer = new Stack<Integer>();
+		private final Queue<Character> buffer = new LinkedList<>();
 		private final Semaphore writePermits = new Semaphore(BUFFER_SIZE);
 		private final Semaphore readPermits = new Semaphore(0);
 		private final Random random = new Random();
@@ -16,11 +18,11 @@ public class ProducerConsumerSemaphore {
 		class Producer implements Runnable {
 		    @Override
 		    public void run() {
-		        for(int i=0; i<10; i++) {
+		        for(int i=0; i<26; i++) {
 		            writePermits.acquireUninterruptibly();
-		            //int no = random.nextInt(MAX_VALUE);
-		            System.out.println("Producing: "+i);
-		            buffer.push(i);
+		            char c = (char)('A'+i); 
+		            System.out.println("Producing: "+c);
+		            buffer.add(c);
 		            readPermits.release();
 		        }
 		    }
@@ -29,10 +31,10 @@ public class ProducerConsumerSemaphore {
 		class Consumer implements Runnable {
 		    @Override
 		    public void run() {
-		        for(int i=0; i<10; i++) {
+		        for(int i=0; i<26; i++) {
 		            readPermits.acquireUninterruptibly();
-		            int no = buffer.pop();
-		            System.out.println("\tConsuming: "+no);
+		            char c = buffer.remove();
+		            System.out.println("\tConsuming: "+c);
 		            writePermits.release();
 		        }
 		    }

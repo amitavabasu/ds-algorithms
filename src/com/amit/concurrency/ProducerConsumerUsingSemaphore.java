@@ -19,20 +19,24 @@ public class ProducerConsumerUsingSemaphore {
 		wSemaphore = new Semaphore(BUFFER_SIZE);
 		rSemaphore = new Semaphore(0);
 		ExecutorService executor = Executors.newFixedThreadPool(2);
-			IntStream.range(0,26).forEach(i -> executor.submit(() -> {
+		executor.submit(() -> {
+			for(int i=0; i<26; i++) {
 				wSemaphore.acquireUninterruptibly();
 				char c = (char)('A'+i);
 				System.out.println("Producing " + c + " ...");
 				buffer.add(c);
 				rSemaphore.release();
-			}));
+			}
+		});
 		
-			IntStream.range(0,26).forEach(i -> executor.submit(() -> {
+		executor.submit(() -> {
+			for(int i=0; i<26; i++) {
 				rSemaphore.acquireUninterruptibly();
 				char c = buffer.remove();
 				System.out.println("\tConsuming " + c + " ...");
 				wSemaphore.release();
-			}));
+			}
+		});
 		
 	}
 	

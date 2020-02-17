@@ -115,15 +115,15 @@ public class TreeTraversal {
 		if(root==null){
 			return;
 		}
-		Stack<Node> stack = new Stack<Node>();
-		stack.push(root);
-		while(!stack.empty()){
-			Node node = stack.pop();
+		Queue<Node> queue = new LinkedList<Node>();
+		queue.add(root);
+		while(queue.isEmpty()){
+			Node node = queue.remove();
 			System.out.println(node.value);
 			if(node.left!=null)
-				stack.push(node.left);
+				queue.add(node.left);
 			if(node.right!=null)
-				stack.push(node.right);
+				queue.add(node.right);
 		}
 	}
 	
@@ -337,6 +337,7 @@ public class TreeTraversal {
 		
 		TreeTraversal tree = new TreeTraversal();
 		Node root = tree.makeTree1Char();
+		TreeTraversalDup1 dup = new TreeTraversalDup1();
 		
 //		System.out.println("--");
 //		tree.preOrder(root);
@@ -344,13 +345,26 @@ public class TreeTraversal {
 //		System.out.println("--");
 //		tree.preOrderNonRecursive(root);
 //		//F, B, A, D, C, E, G, I, H
+//		System.out.println("--");
+//		dup.preOrderRecursive(root);
+//		//F, B, A, D, C, E, G, I, H
+//		System.out.println("--");
+//		dup.preOrderNonRecursive(root);
+//		//F, B, A, D, C, E, G, I, H
+		
 
 		
 //		System.out.println("--");
 //		tree.postOrder(root);
 //		//A, C, E, D, B, H, I, G, F
 //		System.out.println("--");
-//		tree.postOrderNonRecursive1(root);
+//		tree.postOrderNonRecursive(root);
+//		//A, C, E, D, B, H, I, G, F
+//		System.out.println("--");
+//		dup.postOrderRecursive(root);
+//		//A, C, E, D, B, H, I, G, F
+//		System.out.println("--");
+//		dup.postOrderNonRecursive(root);
 //		//A, C, E, D, B, H, I, G, F
 
 		
@@ -360,6 +374,12 @@ public class TreeTraversal {
 //		System.out.println("--");
 //		tree.inOrderNonRecursive(root);
 //		//A, B, C, D, E, F, G, H, I
+//		System.out.println("--");
+//		dup.inOrderRecursive(root);
+//		//A, B, C, D, E, F, G, H, I
+//		System.out.println("--");
+//		dup.inOrderNonRecursive(root);
+//		//A, B, C, D, E, F, G, H, I
 
 		
 //		System.out.println("--");
@@ -368,16 +388,36 @@ public class TreeTraversal {
 //		System.out.println("--");
 //		tree.outOrderNonRecursive(root);
 //		//A, B, C, D, E, F, G, H, I
-
+//		System.out.println("--");
+//		dup.outOrderRecursive(root);
+//		//I, H, G, F, E, D, C, B, A
+//		System.out.println("--");
+//		dup.outOrderNonRecursive(root);
+//		//A, B, C, D, E, F, G, H, I
 		
+
 //		System.out.println("--");
 //		tree.breadthFirstSearchLevelOrderNonRecursive(root);
-//		System.out.println("--");
 //		//F, B, G, A, D, I, C, E, H
 //		System.out.println("--");
-//		tree.breadthFirstSearchLevelOrderRecursive(root);
-//		F, B, G, A, D, I, C, E, H
-//		System.out.println(tree.height(root));
+//		tree.breadthFirstLevelOrderRecursiveTraversal(root);
+//		//F, B, G, A, D, I, C, E, H
+//		System.out.println("--");
+//		dup.levelOrderRecursive(root);
+//		//F, B, G, A, D, I, C, E, H
+//		System.out.println("--");
+//		dup.levelOrderNonRecursive(root);
+//		//F, B, G, A, D, I, C, E, H
+		
+		
+		System.out.println(tree.height(root));
+		//4
+		System.out.println(dup.height(root));
+		//4
+		System.out.println("--");
 		System.out.println(tree.heightByEdges(root));
+		//3
+		System.out.println(dup.heightByEdges(root));
+		//3
 	}
 }

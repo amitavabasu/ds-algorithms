@@ -250,13 +250,13 @@ public class Java8Concurrency {
 	
 	public static void main(String[] args) {
 		Java8Concurrency app = new Java8Concurrency();
-//		app.execute1();
-//		app.execute2();
-//		app.execute3();
-//		app.execute4();
-//		app.execute5();
-//		app.execute6();
-//		app.execute7();
+		app.execute1();
+		app.execute2();
+		app.execute3();
+		app.execute4();
+		app.execute5();
+		app.execute6();
+		app.execute7();
 	}
 	
 }

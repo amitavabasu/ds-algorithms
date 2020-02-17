@@ -5,8 +5,6 @@ import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.IntStream;
 
 
 public class ProducerConsumerUsingSemaphore {
@@ -14,27 +12,36 @@ public class ProducerConsumerUsingSemaphore {
 	private Semaphore wSemaphore;
 	private Semaphore rSemaphore;
 	
-	public void execute(int BUFFER_SIZE) {
+	public ProducerConsumerUsingSemaphore(int size) {
 		buffer = new LinkedList<Character>();
-		wSemaphore = new Semaphore(BUFFER_SIZE);
+		wSemaphore = new Semaphore(size);
 		rSemaphore = new Semaphore(0);
+	}
+	
+	public void execute() {
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		executor.submit(() -> {
 			for(int i=0; i<26; i++) {
-				wSemaphore.acquireUninterruptibly();
-				char c = (char)('A'+i);
-				System.out.println("Producing " + c + " ...");
-				buffer.add(c);
-				rSemaphore.release();
+				try {
+					wSemaphore.acquireUninterruptibly();
+					char c = (char)('A'+i);
+					System.out.println("Producing " + c + " ...");
+					buffer.add(c);
+				}finally {
+					rSemaphore.release();					
+				}
 			}
 		});
 		
 		executor.submit(() -> {
 			for(int i=0; i<26; i++) {
-				rSemaphore.acquireUninterruptibly();
-				char c = buffer.remove();
-				System.out.println("\tConsuming " + c + " ...");
-				wSemaphore.release();
+				try {
+					rSemaphore.acquireUninterruptibly();
+					char c = buffer.remove();
+					System.out.println("\tConsuming " + c + " ...");
+				}finally {
+					wSemaphore.release();
+				}
 			}
 		});
 		
@@ -42,8 +49,8 @@ public class ProducerConsumerUsingSemaphore {
 	
 
 	public static void main(String[] args) {
-		ProducerConsumerUsingSemaphore prodCon = new ProducerConsumerUsingSemaphore();
-		prodCon.execute(4);
+		ProducerConsumerUsingSemaphore prodCon = new ProducerConsumerUsingSemaphore(4);
+		prodCon.execute();
 	}
 }
 

@@ -115,15 +115,16 @@ public class TreeTraversal {
 		if(root==null){
 			return;
 		}
-		Queue<Node> queue = new LinkedList<Node>();
-		queue.add(root);
-		while(queue.isEmpty()){
-			Node node = queue.remove();
+		Stack<Node> stack = new Stack<Node>();
+		stack.push(root);
+		while(!stack.isEmpty()){
+			Node node = stack.pop();
 			System.out.println(node.value);
-			if(node.left!=null)
-				queue.add(node.left);
 			if(node.right!=null)
-				queue.add(node.right);
+				stack.push(node.right);
+			if(node.left!=null) {
+				stack.push(node.left);
+			}
 		}
 	}
 	
@@ -354,18 +355,18 @@ public class TreeTraversal {
 		
 
 		
-//		System.out.println("--");
-//		tree.postOrder(root);
-//		//A, C, E, D, B, H, I, G, F
-//		System.out.println("--");
-//		tree.postOrderNonRecursive(root);
-//		//A, C, E, D, B, H, I, G, F
-//		System.out.println("--");
-//		dup.postOrderRecursive(root);
-//		//A, C, E, D, B, H, I, G, F
-//		System.out.println("--");
-//		dup.postOrderNonRecursive(root);
-//		//A, C, E, D, B, H, I, G, F
+		System.out.println("--");
+		tree.postOrder(root);
+		//A, C, E, D, B, H, I, G, F
+		System.out.println("--");
+		tree.postOrderNonRecursive(root);
+		//A, C, E, D, B, H, I, G, F
+		System.out.println("--");
+		dup.postOrderRecursive(root);
+		//A, C, E, D, B, H, I, G, F
+		System.out.println("--");
+		dup.postOrderNonRecursive(root);
+		//A, C, E, D, B, H, I, G, F
 
 		
 //		System.out.println("--");
@@ -410,14 +411,14 @@ public class TreeTraversal {
 //		//F, B, G, A, D, I, C, E, H
 		
 		
-		System.out.println(tree.height(root));
-		//4
-		System.out.println(dup.height(root));
-		//4
-		System.out.println("--");
-		System.out.println(tree.heightByEdges(root));
-		//3
-		System.out.println(dup.heightByEdges(root));
-		//3
+//		System.out.println(tree.height(root));
+//		//4
+//		System.out.println(dup.height(root));
+//		//4
+//		System.out.println("--");
+//		System.out.println(tree.heightByEdges(root));
+//		//3
+//		System.out.println(dup.heightByEdges(root));
+//		//3
 	}
 }

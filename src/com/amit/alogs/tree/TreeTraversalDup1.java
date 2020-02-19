@@ -20,16 +20,16 @@ public class TreeTraversalDup1 {
 	public void preOrderNonRecursive(Node root) {
 		if(root==null)
 			return;
-		Queue<Node> queue = new LinkedList<Node>();
-		queue.add(root);
-		while(!queue.isEmpty()) {
-			Node node = queue.remove();
+		Stack<Node> stack = new Stack<Node>();
+		stack.push(root);
+		while(!stack.isEmpty()) {
+			Node node = stack.pop();
 			System.out.println(node.value);
-			if(node.left!=null) {
-				queue.add(node.left);
+			if(node.right!=null) {
+				stack.add(node.right);
 			}
-			if(node.right!=null){
-				queue.add(node.right);
+			if(node.left!=null){
+				stack.push(node.left);
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package com.amit.concurrency;
 
+import java.util.concurrent.TimeUnit;
+
 class Storage {
     private char [] buffer;
     private int count = 0, in = 0, out = 0;
@@ -44,7 +46,11 @@ class Storage {
 	   ProducerInner(Storage b) { buffer = b; }
 	   public void run() {
 	     for(int i = 0; i < 26; i++) {
-	        buffer.put((char)('A'+ i%26 )); }
+	        buffer.put((char)('A'+ i%26 ));
+	        try {
+	        	TimeUnit.SECONDS.sleep(1);
+	        }catch(InterruptedException e) {}
+	     }
 	   }
 	}    
 
@@ -54,7 +60,12 @@ class Storage {
 	   ConsumerInner(Storage b) { buffer = b; }
 	   public void run() {
 	     for(int i = 0; i < 26; i++) {
-	        buffer.get(); }
+	        buffer.get();
+	        try {
+	        	TimeUnit.SECONDS.sleep(1);
+	        }catch(InterruptedException e) {}
+	        
+	     }
 	   }
 	}
 

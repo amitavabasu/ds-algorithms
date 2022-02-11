@@ -1,5 +1,7 @@
 package com.amit.concurrency;
 
+import java.util.concurrent.TimeUnit;
+
 class Buffer {
     private char [] buffer;
     private int count = 0, in = 0, out = 0;
@@ -46,7 +48,11 @@ class Producer extends Thread {
    Producer(Buffer b) { buffer = b; }
    public void run() {
      for(int i = 0; i < 26; i++) {
-        buffer.put((char)('A'+ i%26 )); }
+        buffer.put((char)('A'+ i%26 ));
+        try {
+        	TimeUnit.SECONDS.sleep(1);
+        }catch(InterruptedException e) {}
+     }
    }
 }    
 
@@ -56,7 +62,11 @@ class Consumer extends Thread {
    Consumer(Buffer b) { buffer = b; }
    public void run() {
      for(int i = 0; i < 26; i++) {
-        buffer.get(); }
+        buffer.get();
+        try {
+        	TimeUnit.SECONDS.sleep(1);
+        }catch(InterruptedException e) {}
+     }
    }
 }
 
@@ -67,9 +77,12 @@ public class ProducerConsumer
      Buffer b = new Buffer(4);
      Producer p = new Producer(b);
      Consumer c = new Consumer(b);
-
+     Producer p2 = new Producer(b);
+     Consumer c2 = new Consumer(b);
      p.start();
      c.start();
+     p2.start();
+     c2.start();
   }
 }
 
